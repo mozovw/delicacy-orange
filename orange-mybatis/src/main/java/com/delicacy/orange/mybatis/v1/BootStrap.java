@@ -1,5 +1,7 @@
 package com.delicacy.orange.mybatis.v1;
 
+import com.delicacy.orange.mybatis.v1.impl.DefaultSqlSession;
+
 /**
  * 启动类
  *

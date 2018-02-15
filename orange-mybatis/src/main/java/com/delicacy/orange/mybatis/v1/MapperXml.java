@@ -9,7 +9,7 @@ public class MapperXml {
     static {
         methodSqlMapping.put("selectOne","select *  from t_emp where id = ?");
     }
-    public String getMethodSql(String statement){
+    public static String getMethodSql(String statement){
        return methodSqlMapping.get(statement);
     }
 }

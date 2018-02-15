@@ -1,5 +1,7 @@
 package com.delicacy.orange.mybatis.v1;
 
+import java.util.List;
+
 /**
  * sql session interface
  *
@@ -8,7 +10,9 @@ package com.delicacy.orange.mybatis.v1;
  **/
 public interface SqlSession {
 
-    public <T> T selectOne(String statement,Object parameter);
+     <T> T selectOne(String statement,Object parameter);
 
-    public <T> T getMapper(Class<T> clas);
+     <T> List<T> selectList(String statement, Object parameter);
+
+     <T> T getMapper(Class<T> clas);
 }

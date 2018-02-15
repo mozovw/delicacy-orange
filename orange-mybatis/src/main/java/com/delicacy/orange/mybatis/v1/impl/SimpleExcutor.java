@@ -1,15 +1,18 @@
-package com.delicacy.orange.mybatis.v1;
+package com.delicacy.orange.mybatis.v1.impl;
+
+import com.delicacy.orange.mybatis.v1.Entity;
+import com.delicacy.orange.mybatis.v1.Executor;
 
 import java.sql.*;
+import java.util.List;
 
 public class SimpleExcutor implements Executor {
     //可以考虑使用数据库线程池
     static ThreadLocal<Connection> local = new ThreadLocal<>();
 
     @Override
-    public <T> T query(String sql, Object parameter) {
+    public <T> T queryOne(String sql, Object parameter) {
         openConnection();
-        PreparedStatement preparedStatement = null;
         sql = sql.replace("?", String.valueOf(parameter));
         try {
             PreparedStatement pre = local.get().prepareStatement(sql);
@@ -29,11 +32,30 @@ public class SimpleExcutor implements Executor {
         return null;
     }
 
+    @Override
+    public <T> List<T> queryList(String sql, Object parameter) {
+        openConnection();
+        sql = sql.replace("?", String.valueOf(parameter));
+        try {
+            PreparedStatement pre = local.get().prepareStatement(sql);
+            ResultSet set = pre.executeQuery();
+            Entity u = new Entity();
+            while (set.next()) {
+                String string = set.getString(2);
+                u.setName(string);
+            }
+            return (List<T>) u;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally {
+            closeConnection();
+        }
+        return null;
+    }
+
     private void openConnection() {
-        String driver = "com.mysql.jdbc.Driver";
-        String url = "jdbc:mysql://127.0.0.1:3306/test";
-        String username = "root";
-        String password = "123456";
+
         try {
             Class.forName(driver);
             Connection connection = DriverManager.getConnection(url, username, password);
