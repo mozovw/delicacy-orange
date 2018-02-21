@@ -21,7 +21,15 @@ public class MapperProxy implements InvocationHandler {
             String sql = MapperXml.getMethodSql(method.getName());
             //mothod.invoke(this,args);
             //mybatis使用的是反射
-            return sqlSession.selectOne(sql, String.valueOf(args[0]));
+            Method[] methods = sqlSession.getClass().getMethods();
+            for (Method m : methods) {
+                //最好根据方法返回类型判断session用哪个方法
+                //这里根据方法名称判断
+                if(m.getName().equals(method.getName())){
+                    Object invoke = m.invoke(sqlSession,sql, String.valueOf(args[0]));
+                    return invoke;
+                }
+            }
         }
         return null;
     }

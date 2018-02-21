@@ -10,5 +10,4 @@ public interface Executor {
 
      <T> T queryOne(String sql, Object parameter);
 
-     <T> List<T> queryList(String sql, Object parameter);
 }

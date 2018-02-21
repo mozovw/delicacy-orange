@@ -4,6 +4,7 @@ import com.delicacy.orange.mybatis.v1.Entity;
 import com.delicacy.orange.mybatis.v1.Executor;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleExcutor implements Executor {
@@ -16,11 +17,12 @@ public class SimpleExcutor implements Executor {
         sql = sql.replace("?", String.valueOf(parameter));
         try {
             PreparedStatement pre = local.get().prepareStatement(sql);
+
             ResultSet set = pre.executeQuery();
             Entity u = new Entity();
             while (set.next()) {
                 String string = set.getString(2);
-               u.setName(string);
+                u.setName(string);
             }
             return (T) u;
         } catch (SQLException e) {
@@ -32,27 +34,6 @@ public class SimpleExcutor implements Executor {
         return null;
     }
 
-    @Override
-    public <T> List<T> queryList(String sql, Object parameter) {
-        openConnection();
-        sql = sql.replace("?", String.valueOf(parameter));
-        try {
-            PreparedStatement pre = local.get().prepareStatement(sql);
-            ResultSet set = pre.executeQuery();
-            Entity u = new Entity();
-            while (set.next()) {
-                String string = set.getString(2);
-                u.setName(string);
-            }
-            return (List<T>) u;
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }finally {
-            closeConnection();
-        }
-        return null;
-    }
 
     private void openConnection() {
 
@@ -61,7 +42,7 @@ public class SimpleExcutor implements Executor {
             Connection connection = DriverManager.getConnection(url, username, password);
             local.set(connection);
         } catch (Exception e) {
-            // TODO Auto-generated catch block  
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
