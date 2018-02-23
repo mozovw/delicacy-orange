@@ -9,7 +9,6 @@
     <version>0.0.1-SNAPSHOT</version>
 	<modules>
 		<module>orange-base</module>
-		<module>orange-springmvc</module>
 		<module>orange-mybatis</module>
         <module>orange-java</module>
     </modules>
