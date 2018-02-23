@@ -24,11 +24,6 @@ public class DefaultSqlSession implements SqlSession {
     }
 
     @Override
-    public <T> List<T> selectList(String statement, Object parameter) {
-        return excutor.queryList(statement,parameter);
-    }
-
-    @Override
     public <T> T getMapper(Class<T> clas) {
         //代理类
         MapperProxy mapperProxy = new MapperProxy(this);
