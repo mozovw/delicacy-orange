@@ -11,5 +11,5 @@
 		<module>orange-base</module>
 		<module>orange-mybatis</module>
         <module>orange-java</module>
-    </modules>
+	</modules>
 </project>
