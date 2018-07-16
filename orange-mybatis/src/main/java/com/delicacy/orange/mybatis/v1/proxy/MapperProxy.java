@@ -14,18 +14,23 @@ public class MapperProxy implements InvocationHandler {
         this.sqlSession = sqlSession;
     }
 
+
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         //mapper里面的方法和mapperxml里面的类名和方法名称进行比较
         if (method.getDeclaringClass().getName().equals(MapperXml.nameSpace)) {
+            //mapper -- xml 其目的就是为了拿到sql
             String sql = MapperXml.getMethodSql(method.getName());
             //mothod.invoke(this,args);
             //mybatis使用的是反射
             Method[] methods = sqlSession.getClass().getMethods();
+            //拿到mapper的sql和拿到session的方法，在执行
             for (Method m : methods) {
                 //最好根据方法返回类型判断session用哪个方法
+
                 //这里根据方法名称判断
                 if(m.getName().equals(method.getName())){
+                    //selectOne
                     Object invoke = m.invoke(sqlSession,sql, String.valueOf(args[0]));
                     return invoke;
                 }

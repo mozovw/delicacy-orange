@@ -15,7 +15,7 @@ import java.util.List;
  **/
 public class DefaultSqlSession implements SqlSession {
 
-    //
+    //create Executor
     private Executor excutor = new SimpleExcutor();
 
     @Override
