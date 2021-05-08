@@ -1,11 +1,8 @@
 package com.delicacy.orange.java.design.strategy;
 
-interface Strategy {
-    int doOperation(int num1, int num2);
-}
 
 /**
- * 算术策略demo
+ *  解决：if...else 所带来的复杂和难以维护
  *
  * @author zyt
  * @create 2018-06-15 17:42
@@ -26,13 +23,16 @@ public class ArithmeticDemo {
 
 }
 
+interface Strategy {
+    int doOperation(int num1, int num2);
+}
+
+
 class Context {
     private Strategy strategy;
-
     public Context(Strategy strategy) {
         this.strategy = strategy;
     }
-
     public int executeStrategy(int num1, int num2) {
         return strategy.doOperation(num1, num2);
     }

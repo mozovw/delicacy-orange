@@ -1,6 +1,8 @@
 package com.delicacy.orange.java.design.adapter;
 
 /**
+ * 1、在美国使用中国的电器需要变压器
+ * 2、关键：美国电压需要继承变压器，输出中国电压
  * @author zyt
  * @create 2018-05-28 17:10
  **/
@@ -12,7 +14,6 @@ public class VoltageDemo {
         CHATransform chaTransform = new CHATransform();
         System.out.println(chaTransform.voltage());
         System.out.println(chaTransform.transform("usa"));
-
     }
 }
 

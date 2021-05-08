@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("/test")
+@RequestMapping("/exam")
 public class TestController {
 
     @Autowired("testServiceImpl")

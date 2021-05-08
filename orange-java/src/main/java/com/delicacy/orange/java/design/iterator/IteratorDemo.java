@@ -2,33 +2,25 @@ package com.delicacy.orange.java.design.iterator;
 
 
 
+
 /**
- * 迭代器模式
- *
- * 使用场景
- * 1、访问一个聚合对象的内容而无须暴露它的内部表示。
- * 2、需要为聚合对象提供多种遍历方式。
- * 3、为遍历不同的聚合结构提供一个统一的接口。
+ * 关键：迭代类内部类的实现，两个重要的方法：是否有下一个，下一个是谁
  * @author yutao
  * @create 2018-07-16 17:28
  **/
-public class IteratorTest {
+public class IteratorDemo {
 
     public static void main(String[] args) {
         NameRepository namesRepository = new NameRepository();
-
         for (Iterator iter = namesRepository.getIterator(); iter.hasNext(); ) {
             String name = (String) iter.next();
             System.out.println("Name : " + name);
         }
     }
-
 }
-
 
 interface Iterator {
     boolean hasNext();
-
     Object next();
 }
 
@@ -45,17 +37,11 @@ class NameRepository implements Container {
     }
 
     private class NameIterator implements Iterator {
-
         int index;
-
         @Override
         public boolean hasNext() {
-            if (index < names.length) {
-                return true;
-            }
-            return false;
+            return index < names.length;
         }
-
         @Override
         public Object next() {
             if (this.hasNext()) {

@@ -1,0 +1,68 @@
+package com.delicacy.orange.java.design.decorator;
+
+
+
+/**
+ * 在不想增加很多子类的情况下扩展类
+ * InputStreamReader(InputStream in)
+ * @author yutao
+ * @create 2019-12-18 11:08
+ **/
+public class DecoratorDemo {
+
+
+    public static void main(String[] args) {
+        Shape circle = new Circle();
+        ShapeDecorator redCircle = new RedShapeDecorator(new Circle());
+        ShapeDecorator redRectangle = new RedShapeDecorator(new Rectangle());
+        System.out.println("Circle with normal border");
+        circle.draw();
+        System.out.println("\nCircle of red border");
+        redCircle.draw();
+        System.out.println("\nRectangle of red border");
+        redRectangle.draw();
+    }
+}
+
+interface Shape {
+    void draw();
+}
+
+class Rectangle implements Shape {
+    @Override
+    public void draw() {
+        System.out.println("Shape: Rectangle");
+    }
+}
+
+class Circle implements Shape {
+    @Override
+    public void draw() {
+        System.out.println("Shape: Circle");
+    }
+}
+
+abstract class ShapeDecorator implements Shape {
+    protected Shape decoratedShape;
+
+    public ShapeDecorator(Shape decoratedShape) {
+        this.decoratedShape = decoratedShape;
+    }
+
+    public void draw() {
+        decoratedShape.draw();
+    }
+}
+
+class RedShapeDecorator extends ShapeDecorator {
+
+    public RedShapeDecorator(Shape decoratedShape) {
+        super(decoratedShape);
+    }
+
+    @Override
+    public void draw() {
+        decoratedShape.draw();
+        System.out.println("Border Color: Red");
+    }
+}
